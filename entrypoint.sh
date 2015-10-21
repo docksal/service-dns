@@ -7,6 +7,8 @@ if [ "$1" = 'supervisord' ]; then
 	touch /etc/dnsmasq.d/drude.conf
 	# Resolve *.drude to $DRUDE_IP
 	echo "address=/drude/${DRUDE_IP}" >> /etc/dnsmasq.d/drude.conf
+	# Reverse resolution of $DRUDE_IP to 'drude'
+	echo $DRUDE_IP | awk -F . '{print "ptr-record="$4"."$3"."$2"."$1".in-addr.arpa,drude"}' >> /etc/dnsmasq.d/drude.conf
 	
 	# Start supervisord
 	exec /usr/bin/supervisord -n
