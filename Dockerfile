@@ -25,6 +25,7 @@ COPY entrypoint.sh /opt/entrypoint.sh
 
 # Default IP for Drude
 ENV DRUDE_IP '192.168.10.10'
+ENV LOG_QUERIES false
 ENV DOCKER_HOST unix:///var/run/docker.sock
 
 VOLUME /var/run
