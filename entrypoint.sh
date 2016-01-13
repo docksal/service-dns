@@ -3,12 +3,12 @@ set -e
 
 # Default command (assuming container start)
 if [ "$1" = 'supervisord' ]; then
-	# Drude IP config for dnsmasq
-	touch /etc/dnsmasq.d/drude.conf
-	# Resolve *.drude to $DRUDE_IP
-	echo "address=/drude/${DRUDE_IP}" >> /etc/dnsmasq.d/drude.conf
-	# Reverse resolution of $DRUDE_IP to 'drude'
-	echo $DRUDE_IP | awk -F . '{print "ptr-record="$4"."$3"."$2"."$1".in-addr.arpa,drude"}' >> /etc/dnsmasq.d/drude.conf
+	# $DNS_ZONE IP config for dnsmasq
+	touch /etc/dnsmasq.d/${DNS_ZONE}.conf
+	# Resolve *.$DNS_ZONE to $DNS_IP
+	echo "address=/${DNS_ZONE}/${DNS_IP}" >> /etc/dnsmasq.d/${DNS_ZONE}.conf
+	# Reverse resolution of $DNS_IP to ${DNS_ZONE}
+	echo $DNS_IP | awk -v dzone=${DNS_ZONE} -F . '{print "ptr-record="$4"."$3"."$2"."$1".in-addr.arpa,"dzone}' >> /etc/dnsmasq.d/${DNS_ZONE}.conf
 	
 	# Turn query loggin on
 	if [ "$LOG_QUERIES" = true ]; then
