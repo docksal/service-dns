@@ -1,4 +1,4 @@
-FROM alpine:3.2
+FROM alpine:3.3
 
 MAINTAINER Leonid Makarov <leonid.makarov@blinkreaction.com>
 
@@ -10,7 +10,7 @@ RUN apk add --update \
 	&& rm -rf /var/cache/apk/*
 
 # Install docker-gen
-ENV DOCKER_GEN_VERSION 0.4.1
+ENV DOCKER_GEN_VERSION 0.7.1
 RUN wget https://github.com/jwilder/docker-gen/releases/download/$DOCKER_GEN_VERSION/docker-gen-linux-i386-$DOCKER_GEN_VERSION.tar.gz && \
 	tar -C /usr/local/bin -xvzf docker-gen-linux-i386-$DOCKER_GEN_VERSION.tar.gz && \
 	rm /docker-gen-linux-i386-$DOCKER_GEN_VERSION.tar.gz
