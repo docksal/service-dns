@@ -24,7 +24,8 @@ COPY conf/supervisord.conf /etc/supervisor.d/docker-gen.ini
 COPY entrypoint.sh /opt/entrypoint.sh
 
 # Default IP for Drude
-ENV DRUDE_IP '192.168.10.10'
+ENV DNS_IP '192.168.10.10'
+ENV DNS_ZONE 'localzone'
 ENV LOG_QUERIES false
 
 EXPOSE 53/udp
