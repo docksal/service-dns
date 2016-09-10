@@ -1,9 +1,24 @@
-{{ range $host, $containers := groupByMulti $ "Env.DOMAIN_NAME" "," }}
-    {{ range $index, $container := $containers }}
-        {{ range $index, $network := $container.Networks }}
-            {{ if ne $network.IP "" }}
+{{/* template */}}
+{{ define "host" }}
+    {{ $host := .Host }}
+    {{ range $index, $network := .Container.Networks }}
+        {{ if ne $network.IP "" }}
 address=/{{ $host }}/{{ $network.IP }}
-            {{ end }}
         {{ end }}
+    {{ end }}
+{{ end }}
+
+{{/* Configuration via "dns.name" label */}}
+{{ range $index, $container := (whereLabelExists . "dns.name") }}
+    {{ with $container }}
+        {{ $dnsname := index .Labels "dns.name" }}
+        {{ template "host" (dict "Container" $container "Host" (print $dnsname) "Tld" "") }}
+    {{ end }}
+{{ end }}
+
+{{/* Configuration via "DNS_NAME" envitonment variables */}}
+{{ range $host, $containers := groupByMulti $ "Env.DNS_NAME" "," }}
+    {{ range $index, $container := $containers }}
+        {{ template "host" (dict "Container" $container "Host" (print $host) "Tld" "") }}
     {{ end }}
 {{ end }}
