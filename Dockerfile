@@ -1,6 +1,6 @@
 FROM alpine:3.4
 
-MAINTAINER Leonid Makarov <leonid.makarov@blinkreaction.com>
+MAINTAINER Leonid Makarov <leonid.makarov@ffwagency.com>
 
 RUN apk add --no-cache \
 	curl \
@@ -23,9 +23,9 @@ COPY conf/dnsmasq.tmpl /etc/dnsmasq.d/dockergen.tmpl
 COPY conf/supervisord.conf /etc/supervisor.d/docker-gen.ini
 COPY entrypoint.sh /opt/entrypoint.sh
 
-# Default IP for Drude
-ENV DNS_IP '192.168.10.10'
-ENV DNS_ZONE 'localzone'
+# Default domain and IP for wildcard query resolution
+ENV DNS_DOMAIN 'docksal'
+ENV DNS_IP '192.168.64.100'
 ENV LOG_QUERIES false
 
 EXPOSE 53/udp
