@@ -1,10 +1,5 @@
-# docker-dns-discovery
-Docker Service Discovery using docker-gen and dnsmasq
+# DNS Docker image for Docksal
 
-docker-gen generates a configuration for Dnsmasq and reloads it when containers are
-started and stopped.
+docker-gen generates a configuration for dnsmasq and reloads it when containers are started and stopped.
 
-This is a fork of [dns-gen](https://github.com/jderusse/docker-dns-gen) 
-refactored to work with the Alpine Linux base image.
-
-See [dns-gen](https://github.com/jderusse/docker-dns-gen) repo for detailed instructions.
+This image(s) is part of the [Docksal](http://docksal.io) image library.
