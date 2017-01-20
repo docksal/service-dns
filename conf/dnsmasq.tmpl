@@ -16,7 +16,7 @@ address=/{{ $host }}/{{ $network.IP }}
     {{ end }}
 {{ end }}
 
-{{/* Configuration via "DNS_NAME" envitonment variables */}}
+{{/* Configuration via "DNS_NAME" environment variables */}}
 {{ range $host, $containers := groupByMulti $ "Env.DNS_NAME" "," }}
     {{ range $index, $container := $containers }}
         {{ template "host" (dict "Container" $container "Host" (print $host) "Tld" "") }}
