@@ -12,7 +12,7 @@ Provides wildcard domain name resolution for local development.
 ### Wildcard domain name resolution
 
 ```bash
-$ docker run --name dns -d -e DNS_DOMAIN=docksal -e DNS_IP=192.168.64.100 -e docksal/dns
+$ docker run --name dns -d -e DNS_DOMAIN=docksal -e DNS_IP=192.168.64.100 docksal/dns
 
 $ nslookup something.docksal 192.168.64.100
 Server:		192.168.64.100
