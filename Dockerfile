@@ -13,6 +13,9 @@ RUN curl -sSL https://github.com/jwilder/docker-gen/releases/download/$DOCKER_GE
 	tar -C /usr/local/bin -xvzf $DOCKER_GEN_TARFILE && \
 	rm $DOCKER_GEN_TARFILE
 
+# Set strict-order
+RUN sed -i '/strict-order/s/^#//g' /etc/dnsmasq.conf
+
 # dnsmasq config dir
 RUN mkdir -p /etc/dnsmasq.d && \
 	echo -e '\nconf-dir=/etc/dnsmasq.d,.tmpl' >> /etc/dnsmasq.conf
