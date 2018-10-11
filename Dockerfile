@@ -1,4 +1,4 @@
-FROM alpine:3.4
+FROM alpine:3.8
 
 RUN apk add --no-cache \
 	curl \
@@ -7,7 +7,7 @@ RUN apk add --no-cache \
 	&& rm -rf /var/cache/apk/*
 
 # Install docker-gen
-ENV DOCKER_GEN_VERSION 0.7.3
+ENV DOCKER_GEN_VERSION 0.7.4
 ENV DOCKER_GEN_TARFILE docker-gen-alpine-linux-amd64-$DOCKER_GEN_VERSION.tar.gz
 RUN curl -sSL https://github.com/jwilder/docker-gen/releases/download/$DOCKER_GEN_VERSION/$DOCKER_GEN_TARFILE -O && \
 	tar -C /usr/local/bin -xvzf $DOCKER_GEN_TARFILE && \
