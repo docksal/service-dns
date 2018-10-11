@@ -22,7 +22,7 @@ RUN mkdir -p /etc/dnsmasq.d && \
 
 COPY conf/dnsmasq.tmpl /etc/dnsmasq.d/dockergen.tmpl
 COPY conf/supervisord.conf /etc/supervisor.d/docker-gen.ini
-COPY entrypoint.sh /opt/entrypoint.sh
+COPY docker-entrypoint.sh /usr/local/bin
 
 # Default domain and IP for wildcard query resolution
 ENV DNS_DOMAIN 'docksal'
@@ -31,6 +31,6 @@ ENV LOG_QUERIES false
 
 EXPOSE 53/udp
 
-ENTRYPOINT ["/opt/entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["supervisord", "-n"]
