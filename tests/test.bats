@@ -43,13 +43,15 @@ DOCKSAL_IP=192.168.64.100
 
 	# Real domain
 	run ping -c 1 -t 1 www.google.com
-	[[ "${output}" == *"PING www.google.com "* ]]
-	[[ "${output}" != *"Unknown host"* ]]
+	# Use case insensitive comparison (,, modifier), as ping produces different output on different platforms
+	[[ "${output,,}" == *"ping www.google.com "* ]]
+	[[ "${output,,}" != *"unknown host"* ]]
 	unset output
 
 	# Fake domain
 	run ping -c 1 -t 1 www.google2.com
-	[[ "${output}" != *"PING www.google2.com "* ]]
-	[[ "${output}" == *"Unknown host"* ]]
+	# Use case insensitive comparison (,, modifier), as ping produces different output on different platforms
+	[[ "${output,,}" != *"ping www.google2.com "* ]]
+	[[ "${output,,}" == *"unknown host"* ]]
 	unset output
 }
