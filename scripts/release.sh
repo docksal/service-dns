@@ -9,8 +9,8 @@ if [[ "${TRAVIS_PULL_REQUEST}" == "false" ]]; then
 	[[ "${TRAVIS_TAG}" != "" ]] && TAG="${TRAVIS_TAG:1:3}"
 
 	if [[ "$TAG" != "" ]]; then
-		echo docker login -u "${DOCKER_USER}" -p "${DOCKER_PASS}"
-		echo docker tag ${IMAGE_DNS} ${REPO}:${TAG}
-		echo docker push ${REPO}:${TAG}
+		docker login -u "${DOCKER_USER}" -p "${DOCKER_PASS}"
+		docker tag ${IMAGE_DNS} ${REPO}:${TAG}
+		docker push ${REPO}:${TAG}
 	fi;
 fi;
