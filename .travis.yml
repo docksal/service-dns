@@ -1,0 +1,28 @@
+sudo: required
+
+language: generic
+
+env:
+  REPO: docksal/dns
+  IMAGE_DNS: ${REPO}:dev
+  DOCKSAL_VERSION: develop
+
+services:
+  - docker
+
+install:
+  - sudo sudo curl -L https://raw.githubusercontent.com/docksal/docksal/${DOCKSAL_VERSION}/bin/fin -o /usr/local/bin/fin && sudo chmod +x /usr/local/bin/fin
+  - fin version
+  - fin update
+  - fin sysinfo
+
+script:
+  - make
+  - make start
+  - make test
+
+after_success:
+  - make release
+
+after_failure:
+  - make logs
