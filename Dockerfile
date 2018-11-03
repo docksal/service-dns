@@ -10,6 +10,7 @@ RUN set -xe; \
 RUN sed -i '/strict-order/s/^#//g' /etc/dnsmasq.conf
 
 COPY docker-entrypoint.sh /usr/local/bin
+COPY healthcheck.sh /opt/healthcheck.sh
 
 # Default domain and IP for wildcard query resolution
 ENV DNS_DOMAIN 'docksal'
@@ -21,3 +22,6 @@ EXPOSE 53/udp
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["dnsmasq"]
+
+# Health check script
+HEALTHCHECK --interval=5s --timeout=1s --retries=12 CMD ["/opt/healthcheck.sh"]
