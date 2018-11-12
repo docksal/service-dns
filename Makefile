@@ -5,6 +5,7 @@ VERSION ?= dev
 
 REPO = docksal/dns
 NAME = docksal-dns
+DOCKSAL_IP=192.168.64.100
 
 .EXPORT_ALL_VARIABLES:
 
@@ -29,7 +30,7 @@ shell:
 	@make exec-it -e CMD=sh
 
 run: clean
-	docker run --rm -it -e DNS_DOMAIN=docksal -e DNS_IP=192.168.64.100 ${REPO}:${VERSION} sh
+	docker run --rm -it -e DNS_DOMAIN=docksal -e DNS_IP=${DOCKSAL_IP} ${REPO}:${VERSION} sh
 
 # This is the only place where fin is used/necessary
 start:

@@ -56,18 +56,15 @@ _healthcheck_wait ()
     return 0
 }
 
-# Globals
-DOCKSAL_IP=192.168.64.100
-
 # To work on a specific test:
 # run `export SKIP=1` locally, then comment skip in the test you want to debug
 
-@test "DNS container is up and using the \"${IMAGE}\" image" {
+@test "${NAME} container is up and using the \"${IMAGE}\" image" {
 	[[ ${SKIP} == 1 ]] && skip
 	_healthcheck_wait
 
-	run docker ps --filter "name=docksal-dns" --format "{{ .Image }}"
-	[[ "$output" =~ "$IMAGE" ]]
+	run docker ps --filter "name=${NAME}" --format "{{ .Image }}"
+	[[ "$output" =~ "${IMAGE}" ]]
 	unset output
 }
 
