@@ -47,8 +47,8 @@ _healthcheck_wait ()
 	elapsed=$((elapsed + delay))
 	if ((elapsed > timeout)); then
 		echo-error "$container_name heathcheck failed" \
-	"Container did not enter a healthy state within the expected amount of time." \
-	"Try ${yellow}fin restart${NC}"
+			"Container did not enter a healthy state within the expected amount of time." \
+			"Try ${yellow}fin restart${NC}"
 		exit 1
 	fi
 	done
