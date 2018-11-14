@@ -3,6 +3,9 @@
 DEBUG=${DEBUG:-0}
 # Turn debugging ON when cli is started in the service mode
 if [ "$1" == "dnsmasq" ]; then DEBUG=1; fi
+
+# Print a debug message if debug mode is on
+# @param message
 echo_debug ()
 {
 	[[ "$DEBUG" != 0 ]] && echo "$(date +"%F %H:%M:%S") | $@"
