@@ -24,4 +24,4 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["dnsmasq"]
 
 # Health check script
-HEALTHCHECK --interval=5s --timeout=1s --retries=12 CMD ["/opt/healthcheck.sh"]
+HEALTHCHECK --interval=5s --timeout=1s --retries=3 CMD ["/opt/healthcheck.sh"]
