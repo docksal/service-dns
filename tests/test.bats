@@ -57,7 +57,9 @@ _healthcheck_wait ()
 
 @test "${NAME} container is up and using the \"${IMAGE}\" image" {
 	[[ ${SKIP} == 1 ]] && skip
-	_healthcheck_wait
+
+	run _healthcheck_wait
+	unset output
 
 	run docker ps --filter "name=${NAME}" --format "{{ .Image }}"
 	[[ "$output" =~ "${IMAGE}" ]]
@@ -66,7 +68,9 @@ _healthcheck_wait ()
 
 @test ".docksal name resolution" {
 	[[ $SKIP == 1 ]] && skip
-	_healthcheck_wait
+
+	run _healthcheck_wait
+	unset output
 
 	# Check .docksal domain resolution via ping
 	run ping -c 1 -t 1 anything.docksal
@@ -82,7 +86,9 @@ _healthcheck_wait ()
 
 @test "External name resolution" {
 	[[ $SKIP == 1 ]] && skip
-	_healthcheck_wait
+
+	run _healthcheck_wait
+	unset output
 
 	# Real domain
 	run ping -c 1 -t 1 www.google.com
