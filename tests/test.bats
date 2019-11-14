@@ -103,6 +103,6 @@ _healthcheck_wait ()
 	run ping -c 1 -t 1 www.google2.com
 	# Use case insensitive comparison (,, modifier), as ping produces different output on different platforms
 	[[ "${output,,}" != *"ping www.google2.com "* ]]
-	[[ "${output,,}" == *"unknown host"* ]]
+	[[ "${output,,}" == *"not known"* ]]
 	unset output
 }
