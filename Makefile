@@ -3,7 +3,7 @@ DOCKER ?= docker
 
 SHELL = /bin/bash
 VERSION ?= dev
-
+TAG ?= $(VERSION)
 REPO = docksal/dns
 NAME = docksal-dns
 DOCKSAL_IP=192.168.64.100
@@ -52,7 +52,7 @@ show-config:
 debug: build start logs-follow
 
 release:
-	@scripts/release.sh
+	@scripts/docker-push.sh
 
 clean:
 	${DOCKER} rm -vf ${NAME} || true
