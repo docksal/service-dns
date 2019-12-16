@@ -2,7 +2,12 @@
 DOCKER ?= docker
 
 SHELL = /bin/bash
-VERSION ?= dev
+
+ifeq ($(VERSION),)
+    VERSION = dev
+    LATEST_VERSION = $(VERSION)
+endif
+
 BUILD_TAG ?= $(VERSION)
 REPO = docksal/dns
 NAME = docksal-dns
