@@ -68,41 +68,25 @@ _healthcheck_wait ()
 	unset output
 }
 
-@test ".docksal name resolution" {
+@test ".docksal name resolution via docksal-dns" {
 	[[ $SKIP == 1 ]] && skip
 
-	run _healthcheck_wait
-	unset output
-
-	# Check .docksal domain resolution via ping
-	run ping -c 1 -t 1 anything.docksal
-	[[ "${output}" == *"${DOCKSAL_IP}"* ]]
-	unset output
-
 	# Check .docksal domain resolution via dig
-	run dig @${DOCKSAL_IP} anything.docksal
-	[[ "${output}" == *"SERVER: ${DOCKSAL_IP}"* ]]
-	[[ "${output}" == *"ANSWER: 1"* ]]
+	run nslookup -timeout=1 anything.docksal ${DOCKSAL_IP}
+	[[ ${status} == 0 ]]
 	unset output
 }
 
-@test "External name resolution" {
+@test "External name resolution via docksal-dns" {
 	[[ $SKIP == 1 ]] && skip
 
-	run _healthcheck_wait
-	unset output
-
 	# Real domain
-	run ping -c 1 -t 1 www.google.com
-	# Use case insensitive comparison (,, modifier), as ping produces different output on different platforms
-	[[ "${output,,}" == *"ping www.google.com "* ]]
-	[[ "${output,,}" != *"unknown host"* ]]
+	run nslookup -timeout=1 docksal.site ${DOCKSAL_IP}
+	[[ ${status} == 0 ]]
 	unset output
 
 	# Fake domain
-	run ping -c 1 -t 1 www.google2.com
-	# Use case insensitive comparison (,, modifier), as ping produces different output on different platforms
-	[[ "${output,,}" != *"ping www.google2.com "* ]]
-	[[ "${output,,}" == *"not known"* ]]
+	run nslookup -timeout=1 docksal.xyz ${DOCKSAL_IP}
+	[[ ${status} != 0 ]]
 	unset output
 }
