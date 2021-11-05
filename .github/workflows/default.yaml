@@ -17,7 +17,7 @@ defaults:
     shell: bash
 
 env:
-  IMAGE: docksal/ssh-dns
+  IMAGE: docksal/dns
   DOCKSAL_VERSION: develop
 
 jobs:
