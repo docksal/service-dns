@@ -1,4 +1,7 @@
-FROM alpine:3.9
+FROM alpine:3.14
+
+# amd64 / arm64
+ARG TARGETARCH
 
 RUN set -xe; \
 	apk add --update --no-cache \
@@ -13,9 +16,10 @@ COPY docker-entrypoint.sh /usr/local/bin
 COPY healthcheck.sh /opt/healthcheck.sh
 
 # Default domain and IP for wildcard query resolution
-ENV DNS_DOMAIN 'docksal'
-ENV DNS_IP '192.168.64.100'
-ENV LOG_QUERIES false
+ENV \
+	DNS_DOMAIN=docksal \
+	DNS_IP=192.168.64.100 \
+	LOG_QUERIES=false
 
 EXPOSE 53/udp
 
